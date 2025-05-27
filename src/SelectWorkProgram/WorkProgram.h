@@ -5,5 +5,5 @@ class WorkProgram
 {
 public:
   virtual ~WorkProgram() = default;
-  virtual void workProgram() const = 0;
+  virtual void workProgram() = 0;
 };

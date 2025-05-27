@@ -32,4 +32,6 @@ set(HEADERS
   src/UsbWork/USB.h
 )
 
-add_executable(BlockSecurity_back ${SOURCE} ${HEADERS})
+add_executable(BlockSecurity_Linux ${SOURCE} ${HEADERS})
+
+target_link_libraries(BlockSecurity_Linux PRIVATE bluetooth)

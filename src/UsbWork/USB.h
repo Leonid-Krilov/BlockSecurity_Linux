@@ -9,11 +9,11 @@
 class USB : public WorkProgram
 {
 protected:
-  void workProgram() const override;
+  void workProgram() override;
 
 private:
-  void searchUSB() const;
+  void searchUSB();
 
 private:
-  mutable std::vector<std::string> m_usbDevice;
+  std::vector<std::string> m_usbDevice;
 };

@@ -1,6 +1,6 @@
 #include <USB.h>
 
-void USB::workProgram() const
+void USB::workProgram()
 {
   searchUSB();
   if (m_usbDevice.empty()) {
@@ -13,7 +13,7 @@ void USB::workProgram() const
     }
 }
 
-void USB::searchUSB() const
+void USB::searchUSB()
 {
   std::string line;
   std::ifstream mount("/proc/mounts");

@@ -7,7 +7,7 @@ int main()
 {
   SelectWorkProgram fabricaStartProgram;
 
-  WorkProgram* startProgram = fabricaStartProgram.selectWorkProgram(3);
+  WorkProgram* startProgram = fabricaStartProgram.selectWorkProgram(1);
   if(startProgram)
   {
     startProgram->workProgram();
