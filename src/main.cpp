@@ -1,18 +1,36 @@
 #include <iostream>
+#include <string>
 
-#include "SelectWorkProgram.h"
-#include "WorkProgram.h"
+#include "FS_Device.h"
+#include "Device.h"
+#include "SelectDeviceBluetooth.h"
+#include "SelectDeviceUSB.h"
 
 int main()
 {
-  SelectWorkProgram fabricaStartProgram;
+  int type = 1;
+  FS_Device* selectDevice = nullptr;
+  Device* device = nullptr;
 
-  WorkProgram* startProgram = fabricaStartProgram.selectWorkProgram(1);
-  if(startProgram)
+  switch(type)
   {
-    startProgram->workProgram();
-    delete startProgram;
+    case 1:
+      selectDevice = new SelectDeviceBluetooth();
+      device = selectDevice->createDevice();
+      break;
+    case 2:
+      selectDevice = new SelectDeviceUSB();
+      device = selectDevice->createDevice();
+      break;
   }
 
+  if(!device)
+    std::cout << "Device not create\n";
+  else
+    device->workDevice();
+
+  delete device;
+  delete selectDevice;
+
   return 0;
-}
+} 
