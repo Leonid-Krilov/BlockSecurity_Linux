@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <filesystem>
 
 #include "Device.h"
 
@@ -13,7 +14,10 @@ protected:
 
 private:
   void searchUSB();
+  bool searchKeyFile();
+  bool mountDevice(std::string& device);
 
 private:
   std::vector<std::string> m_usbDevice;
+  std::string m_pathFileKey;
 };

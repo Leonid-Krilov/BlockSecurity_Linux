@@ -13,6 +13,8 @@ include_directories(
   src/BluetoothDevice
   src/USBDevice
   src/SelectDevice
+  src/Cripta
+  script/
 )
 
 set(SOURCE
@@ -21,6 +23,9 @@ set(SOURCE
   src/BluetoothDevice/BluetoothDevice.cpp
 
   src/USBDevice/USBDevice.cpp
+
+  src/Cripta/Cript.cpp
+  src/Cripta/Encript.cpp
 )
 
 set(HEADERS
@@ -33,6 +38,9 @@ set(HEADERS
   src/BluetoothDevice/BluetoothDevice.h
 
   src/USBDevice/USBDevice.h
+
+  src/Cripta/Cript.h
+  src/Cripta/Encript.h
 )
 
 add_executable(BlockSecurity_Linux ${SOURCE} ${HEADERS})

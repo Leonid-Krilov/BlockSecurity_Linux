@@ -8,7 +8,7 @@
 
 int main()
 {
-  int type = 1;
+  int type = 2;
   FS_Device* selectDevice = nullptr;
   Device* device = nullptr;
 
