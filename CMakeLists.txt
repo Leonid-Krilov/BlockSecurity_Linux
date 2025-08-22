@@ -14,7 +14,6 @@ include_directories(
   src/USBDevice
   src/SelectDevice
   src/Cripta
-  script/
 )
 
 set(SOURCE

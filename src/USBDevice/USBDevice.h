@@ -13,11 +13,12 @@ protected:
   void workDevice() override;
 
 private:
-  void searchUSB();
-  bool searchKeyFile();
+  bool searchUSB();
   bool mountDevice(std::string& device);
 
 private:
   std::vector<std::string> m_usbDevice;
   std::string m_pathFileKey;
+  std::string m_device;
+  std::string m_key;
 };

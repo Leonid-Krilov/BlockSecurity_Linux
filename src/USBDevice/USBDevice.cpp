@@ -2,55 +2,58 @@
 
 void USBDevice::workDevice()
 {
-  searchUSB();
-  if (m_usbDevice.empty()) {
+  if (!searchUSB()) {
         std::cout << "USB-устройства не найдены." << std::endl;
     }
     else
     {
-      if (!searchKeyFile())
+      std::ifstream fileKey(m_pathFileKey);
+      fileKey.is_open();
+
+      while (std::getline(fileKey, m_key))
       {
-        std::cout << "USB устройство не подошло";
+        
       }
-      else
-      {
-        //проверка ключа
-      }
+
+      fileKey.close();
+       
+      // if (true)
+      // {
+      //   std::cout << "USB устройство не подошло";
+      // }
+      // else
+      // {
+      //   //проверка ключа
+      // }
       
     }
 }
 
-void USBDevice::searchUSB()
+namespace fs = std::filesystem;
+const std::string PATHKEY = "/FileKey.txt";
+
+bool USBDevice::searchUSB()
 {
   std::string line;
   std::ifstream mount("/proc/mounts");
 
-  while(getline(mount, line))
+  while (getline(mount, line))
   {
-    if(line.find("/dev/sd") != std::string::npos || line.find("dev/sdb") != std::string::npos)
+    if(line.find("/dev/sd") != std::string::npos && line.find("/dev/sda") == std::string::npos || line.find("/dev/mmcblk") != std::string::npos) 
     {
       m_usbDevice.push_back(line.substr(0, line.find(' ')));
-    }
-  }
-}
 
-bool USBDevice::searchKeyFile()
-{
-  
-  for (const auto& dev : m_usbDevice)
-  {
-    std::string line;
-    std::ifstream fileKey(dev);
+      std::string device, mount_point;
+      std::istringstream ss(line);
+      ss >> device >> mount_point;
 
-    while(getline(fileKey, line))
-    {
-      if(line.find("fileKey.txt"))
-      {
-        m_pathFileKey = dev;
-        bool success = mountDevice(m_pathFileKey);
+      m_pathFileKey = mount_point + PATHKEY;
         
-        return true;
-      }
+      if (fs::exists(m_pathFileKey) && fs::is_regular_file(m_pathFileKey))
+        {
+          m_device = device;
+          return true;
+        }
     }
   }
   return false;
