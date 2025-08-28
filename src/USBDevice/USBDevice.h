@@ -10,7 +10,7 @@
 class USBDevice : public Device
 {
 protected:
-  void workDevice() override;
+  std::string workDevice() override;
 
 private:
   bool searchUSB();

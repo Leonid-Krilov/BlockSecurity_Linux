@@ -11,7 +11,7 @@
 class BluetoothDevice : public Device
 {
 protected:
-  void workDevice() override;
+  std::string workDevice() override;
 
 private:
   int searchBluetoothConnected();

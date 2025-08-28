@@ -27,7 +27,10 @@ int main()
   if(!device)
     std::cout << "Device not create\n";
   else
-    device->workDevice();
+  {
+    std::string key = device->workDevice();
+    ///и бесконечный цикл работы программы
+  }
 
   delete device;
   delete selectDevice;

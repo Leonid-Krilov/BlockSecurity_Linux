@@ -1,32 +1,30 @@
 #include "USBDevice.h"
 
-void USBDevice::workDevice()
+std::string USBDevice::workDevice()
 {
-  if (!searchUSB()) {
-        std::cout << "USB-устройства не найдены." << std::endl;
-    }
-    else
+  if (!searchUSB())
+  {
+    std::cout << "\nUSB-устройства не найдены!\n" << std::endl;
+    return std::string();
+  }
+  else
+  {
+    std::ifstream fileKey(m_pathFileKey);
+    fileKey.is_open();
+
+    while (std::getline(fileKey, m_key))
     {
-      std::ifstream fileKey(m_pathFileKey);
-      fileKey.is_open();
-
-      while (std::getline(fileKey, m_key))
+      if (!m_key.empty())
       {
-        
+        std::cout << "\nFile with KEY clear!\n";
+        return std::string();
       }
-
-      fileKey.close();
-       
-      // if (true)
-      // {
-      //   std::cout << "USB устройство не подошло";
-      // }
-      // else
-      // {
-      //   //проверка ключа
-      // }
-      
     }
+
+    fileKey.close();
+  }
+
+  return m_key;
 }
 
 namespace fs = std::filesystem;

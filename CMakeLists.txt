@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+find_package(PostgreSQL REQUIRED)
+
 include_directories(
   src/Device  
   src/BluetoothDevice
@@ -44,4 +46,5 @@ set(HEADERS
 
 add_executable(BlockSecurity_Linux ${SOURCE} ${HEADERS})
 
-target_link_libraries(BlockSecurity_Linux PRIVATE bluetooth)
+target_link_libraries(BlockSecurity_Linux PRIVATE bluetooth ${PostgreSQL_LIBRARIES})
+target_include_directories(BlockSecurity_Linux PRIVATE ${PostgreSQL_INCLUDE_DIRS})
