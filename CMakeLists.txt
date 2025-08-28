@@ -16,6 +16,7 @@ include_directories(
   src/USBDevice
   src/SelectDevice
   src/Cripta
+  src/Database
 )
 
 set(SOURCE
@@ -27,6 +28,8 @@ set(SOURCE
 
   src/Cripta/Cript.cpp
   src/Cripta/Encript.cpp
+
+  src/Database/WorkDatabase.cpp
 )
 
 set(HEADERS
@@ -42,6 +45,8 @@ set(HEADERS
 
   src/Cripta/Cript.h
   src/Cripta/Encript.h
+
+  src/Database/WorkDatabase.h
 )
 
 add_executable(BlockSecurity_Linux ${SOURCE} ${HEADERS})
