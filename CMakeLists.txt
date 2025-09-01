@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.10)
 
 project(BlockSecurity_back)
 
-  
-
 set(CMAKE_CXX_STANDARD 17)
-
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 find_package(PostgreSQL REQUIRED)
+
+message(STATUS "PostgreSQL include dir: ${PostgreSQL_INCLUDE_DIRS}")
+message(STATUS "PostgreSQL libraries: ${PostgreSQL_LIBRARIES}")
 
 include_directories(
   src/Device  
@@ -27,7 +27,6 @@ set(SOURCE
   src/USBDevice/USBDevice.cpp
 
   src/Cripta/Cript.cpp
-  src/Cripta/Encript.cpp
 
   src/Database/WorkDatabase.cpp
 )
@@ -44,12 +43,11 @@ set(HEADERS
   src/USBDevice/USBDevice.h
 
   src/Cripta/Cript.h
-  src/Cripta/Encript.h
 
   src/Database/WorkDatabase.h
 )
 
-add_executable(BlockSecurity_Linux ${SOURCE} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCE} ${HEADERS})
 
-target_link_libraries(BlockSecurity_Linux PRIVATE bluetooth ${PostgreSQL_LIBRARIES})
-target_include_directories(BlockSecurity_Linux PRIVATE ${PostgreSQL_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} PRIVATE bluetooth ${PostgreSQL_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${PostgreSQL_INCLUDE_DIRS})

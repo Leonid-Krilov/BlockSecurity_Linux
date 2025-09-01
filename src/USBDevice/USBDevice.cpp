@@ -14,17 +14,22 @@ std::string USBDevice::workDevice()
 
     while (std::getline(fileKey, m_key))
     {
-      if (!m_key.empty())
+      if (m_key.empty())
       {
         std::cout << "\nFile with KEY clear!\n";
         return std::string();
       }
+      else
+      {
+        std::cout << "\nKey saved!\n";
+        return m_key;
+      }
     }
-
+  
     fileKey.close();
   }
-
-  return m_key;
+  
+  return std::string();
 }
 
 namespace fs = std::filesystem;
@@ -57,12 +62,14 @@ bool USBDevice::searchUSB()
   return false;
 }
 
+
+
 bool USBDevice::mountDevice(std::string& device)
 {
   if (device.empty() || device.find("..") != std::string::npos) {
         return false;  // Базовая проверка безопасности
     }
     
-    std::string command = "../script/script_mount.sh " + device;
+    std::string command = "../bin/script_mount.sh " + device;
     return system(command.c_str()) == 0;
 }
