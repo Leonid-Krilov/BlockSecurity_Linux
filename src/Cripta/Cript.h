@@ -15,7 +15,7 @@ public:
   void eulerEncript();
   void createKey();
 private:
-  int m_openNumber = 2, m_closeNumber, m_totalNumber = 91;
+  int m_openNumber, m_closeNumber, m_totalNumber;
   std::string m_stringKey = "Test123%";
   std::vector<int> m_keyVector;
   std::vector<char> m_criptVector;

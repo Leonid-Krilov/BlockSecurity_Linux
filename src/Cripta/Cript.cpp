@@ -6,7 +6,7 @@ Cript::Cript()
 }
 
 void Cript::eulerCript()
-{//нужно будет добавить создание ключей, когда дело дойдет до GUI
+{
   for (char simbol : m_stringKey)
     m_keyVector.push_back(static_cast<int>(simbol));
 

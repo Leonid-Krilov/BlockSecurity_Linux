@@ -1,11 +1,10 @@
 #include "USBDevice.h"
 
-std::string USBDevice::workDevice()
+void USBDevice::workDevice()
 {
   if (!searchUSB())
   {
     std::cout << "\nUSB-устройства не найдены!\n" << std::endl;
-    return std::string();
   }
   else
   {
@@ -15,25 +14,21 @@ std::string USBDevice::workDevice()
     while (std::getline(fileKey, m_key))
     {
       if (m_key.empty())
-      {
         std::cout << "\nFile with KEY clear!\n";
-        return std::string();
-      }
       else
       {
-        std::cout << "\nKey saved!\n";
-        return m_key;
+        rocFileKey();
+        
       }
     }
   
     fileKey.close();
   }
-  
-  return std::string();
 }
 
 namespace fs = std::filesystem;
-const std::string PATHKEY = "/FileKey.txt";
+const std::string FILEKEY = "/FileKey.txt";
+const std::string ROCKEY = "/ROCKEY.txt";
 
 bool USBDevice::searchUSB()
 {
@@ -50,7 +45,8 @@ bool USBDevice::searchUSB()
       std::istringstream ss(line);
       ss >> device >> mount_point;
 
-      m_pathFileKey = mount_point + PATHKEY;
+      m_pathFileKey = mount_point + FILEKEY;
+      m_pathOpenKey = mount_point + ROCKEY;
         
       if (fs::exists(m_pathFileKey) && fs::is_regular_file(m_pathFileKey))
         {
@@ -62,7 +58,41 @@ bool USBDevice::searchUSB()
   return false;
 }
 
+const std::string PATHROCFILE = "../data/Key.txt";
 
+void USBDevice::rocFileKey()
+{
+  std::string stringROCKey;
+  std::ifstream fileROCKey;
+  std::vector<std::string> vectorKey;
+
+  fileROCKey.open(PATHROCFILE);
+  while (std::getline(fileROCKey, stringROCKey))
+  {
+    size_t pozition = stringROCKey.find("|");
+
+    if (pozition != std::string::npos)
+    {
+      m_closeKey = stringROCKey.substr(0, pozition - 1);
+      m_totalKey = stringROCKey.substr(pozition + 2);
+    }
+  }
+  fileROCKey.close();
+
+  fileROCKey.open(m_pathOpenKey);
+  while (std::getline(fileROCKey, stringROCKey))
+  {
+    size_t pozition = stringROCKey.find("|");
+
+    if (pozition != std::string::npos)
+    {
+      m_openKey = stringROCKey.substr(0, pozition - 1);
+      m_totalKey = stringROCKey.substr(pozition + 2);
+    }
+  }
+  fileROCKey.close();
+
+}
 
 bool USBDevice::mountDevice(std::string& device)
 {

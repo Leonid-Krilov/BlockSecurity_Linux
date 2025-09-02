@@ -10,15 +10,17 @@
 class USBDevice : public Device
 {
 protected:
-  std::string workDevice() override;
-
+  void workDevice() override;
+  
 private:
   bool searchUSB();
   bool mountDevice(std::string& device);
+  void rocFileKey();
 
 private:
   std::vector<std::string> m_usbDevice;
-  std::string m_pathFileKey;
+  std::string m_pathFileKey, m_pathOpenKey;
   std::string m_device;
   std::string m_key;
+  std::string m_openKey, m_closeKey, m_totalKey;
 };
