@@ -1,9 +1,9 @@
 #include "BluetoothDevice.h"
 
-std::string BluetoothDevice::workDevice()
+void BluetoothDevice::workDevice()
 {
   searchBluetoothConnected();
-  return "true";
+
 }
 
 int BluetoothDevice::searchBluetoothConnected()

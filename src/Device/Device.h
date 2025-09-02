@@ -6,5 +6,5 @@ class Device
 {
 public:
   virtual ~Device() = default;
-  virtual std::string workDevice() = 0;
+  virtual void workDevice() = 0;
 };
